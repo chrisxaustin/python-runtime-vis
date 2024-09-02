@@ -8,7 +8,7 @@ import seaborn as sns
 import warnings
 from typing import Callable, Any, Iterable
 
-from runtime_vis.curves import curve_n, curve_logn, curve_nlogn, curves
+from runtime_vis.curves import fit_n, fit_logn, fit_nlogn, fit_n2, fit_n3
 
 
 class Vis:
