@@ -1,5 +1,5 @@
 from typing import Callable, Any
-
+import numpy as np
 
 class Curve:
     def __init__(
