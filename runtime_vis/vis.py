@@ -8,37 +8,49 @@ import seaborn as sns
 import warnings
 from typing import Callable, Any, Iterable
 
-from runtime_vis.curves import curve_n, curve_logn, curve_nlogn
+from runtime_vis.curves import curve_n, curve_logn, curve_nlogn, curves
 
 
 class Vis:
-    def __init__(self):
+    def __init__(self, fit: List[str] = None):
         self.initial_guess = {
             'n': [1e-7, 1],
             'logn': [1e-7, 1],
             'nlogn': [1e-7, 1],
             'n2': [1e-10, 1],
         }
-        self.curves = [
-            curve_n,
-            curve_logn,
-            curve_nlogn,
-            curve_n2,
-        ]
+        self.times = []
 
-    def profile_batch(self, function: Callable[[int], Any], name: str, size: int, dataset: pd.DataFrame):
+        if fit:
+            self.curves = []
+            for name in fit:
+                if name in curves:
+                    self.curves.append(curves[name])
+        else:
+            self.curves = [
+                fit_n,
+                fit_logn,
+                fit_nlogn,
+                fit_n2,
+            ]
+
+
+    def profile_batch(self, function: Callable[[int], Any], size: int, dataset: pd.DataFrame):
         p = cProfile.Profile()
         p.enable()
         function(size)
         p.create_stats()
         stats = pstats.Stats(p)
+        time = 0
         for stat in stats.stats.items():
-            if stat[0][2] == name:
+            if stat[1][3] > max:
                 time = stat[1][3]
-                row = {'N': size, 'Time': time}
-                dataset.loc[len(dataset)] = [size, time]
-                render_plot(dataset)
-                break
+
+        row = {'N': size, 'Time': time}
+        dataset.loc[len(dataset)] = [size, time]
+        render_plot(dataset)
+        self.times.append((size,time))
+
         p.disable()
         print(f"{size}\t{time:4.2f}")
 
@@ -68,9 +80,8 @@ class Vis:
     def visualize(
         self,
         function: Callable[[int], Any],
-        name: str,
         series: Iterable[int]
-    ):
+    ) -> List[tuple[int,int]]:
         dataset = pd.DataFrame(columns=['N', 'Time'])
         plt.figure()
         plt.ion()
@@ -78,7 +89,7 @@ class Vis:
         plt.xlabel('N')
         plt.ylabel('Time (ms)')
         for size in series:
-            self.profile_batch(function, name, size, dataset)
+            self.profile_batch(function, size, dataset)
             self.fit_curve(dataset)
         plt.ioff()
         plt.show()
