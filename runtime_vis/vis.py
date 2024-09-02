@@ -6,7 +6,7 @@ import pstats
 import scipy.optimize as opt
 import seaborn as sns
 import warnings
-from typing import Callable, Any, Iterable
+from typing import Callable, Any, Iterable, List
 
 from runtime_vis.curves import fit_n, fit_logn, fit_nlogn, fit_n2, fit_n3
 
