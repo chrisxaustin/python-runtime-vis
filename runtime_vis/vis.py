@@ -40,7 +40,6 @@ class Vis:
             if stat[1][3] > time:
                 time = stat[1][3]
 
-        row = {'N': size, 'Time': time}
         dataset.loc[len(dataset)] = [size, time]
         self.render_plot(dataset)
         self.times.append((size,time))
