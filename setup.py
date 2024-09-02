@@ -3,6 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name="runtime_vis",
     author="Chris Austin",
+    url="https://github.com/chrisxaustin/python-runtime-vis",
     version="0.1",
     packages=find_packages(),
     install_requires=[

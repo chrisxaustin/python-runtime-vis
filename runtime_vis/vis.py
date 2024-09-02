@@ -5,6 +5,7 @@ import pandas as pd
 import pstats
 import scipy.optimize as opt
 import seaborn as sns
+from typing import Callable
 
 
 def profile_batch(function: Callable[[int], Any], name: string, size: int, dataset: pd.DataFrame):
