@@ -5,7 +5,7 @@ import pandas as pd
 import pstats
 import scipy.optimize as opt
 import seaborn as sns
-from typing import Callable, Any
+from typing import Callable, Any, List, Iterable
 
 
 def profile_batch(function: Callable[[int], Any], name: str, size: int, dataset: pd.DataFrame):
@@ -76,14 +76,14 @@ def fit_curve(dataset: pd.DataFrame):
     plt.pause(0.1)
 
 
-def visualize(function: Callable[[int], Any], name: str, series: list(int)):
+def visualize(function: Callable[[int], Any], name: str, series: l=Iterable[int]):
     dataset = pd.DataFrame(columns=['N', 'Time'])
     plt.figure()
     plt.ion()
     plt.show()
     plt.xlabel('N')
     plt.ylabel('Time (ms)')
-    for size in [1000, 2000, 4000, 8000, 16000, 32000, 64000]:
+    for size in series:
         profile_batch(function, name, size, dataset)
         fit_curve(dataset)
     plt.ioff()
