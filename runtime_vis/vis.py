@@ -13,12 +13,6 @@ from runtime_vis.curves import fit_n, fit_logn, fit_nlogn, fit_n2, fit_n3, named
 
 class Vis:
     def __init__(self, fit: List[str] = None):
-        self.initial_guess = {
-            'n': [1e-7, 1],
-            'logn': [1e-7, 1],
-            'nlogn': [1e-7, 1],
-            'n2': [1e-10, 1],
-        }
         self.times = []
 
         if fit:
