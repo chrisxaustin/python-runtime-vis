@@ -37,7 +37,7 @@ def _curve_n3(x, a, b):
 
 
 curve_n = Curve('n', _curve_n, 'gray')
-curve_logn = Curve('logn', _curve_logn(), 'green')
-curve_nlogn = Curve('nlogn', _curve_nlogn(), 'blue')
-curve_n2 = Curve('n2', _curve_n2(), 'orange')
-curve_n3 = Curve('n3', _curve_n3(), 'red')
+curve_logn = Curve('logn', _curve_logn, 'green')
+curve_nlogn = Curve('nlogn', _curve_nlogn, 'blue')
+curve_n2 = Curve('n2', _curve_n2, 'orange')
+curve_n3 = Curve('n3', _curve_n3, 'red')
