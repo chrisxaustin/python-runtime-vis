@@ -8,7 +8,7 @@ import seaborn as sns
 from typing import Callable, Any
 
 
-def profile_batch(function: Callable[[int], Any], name: string, size: int, dataset: pd.DataFrame):
+def profile_batch(function: Callable[[int], Any], name: str, size: int, dataset: pd.DataFrame):
     p = cProfile.Profile()
     p.enable()
     function(size)
@@ -76,7 +76,7 @@ def fit_curve(dataset: pd.DataFrame):
     plt.pause(0.1)
 
 
-def visualize(function: Callable[[int], Any], name: string, series: list(int)):
+def visualize(function: Callable[[int], Any], name: str, series: list(int)):
     dataset = pd.DataFrame(columns=['N', 'Time'])
     plt.figure()
     plt.ion()
