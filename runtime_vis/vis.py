@@ -48,7 +48,7 @@ class Vis:
 
         row = {'N': size, 'Time': time}
         dataset.loc[len(dataset)] = [size, time]
-        render_plot(dataset)
+        self.render_plot(dataset)
         self.times.append((size,time))
 
         p.disable()
