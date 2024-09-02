@@ -76,7 +76,7 @@ def fit_curve(dataset: pd.DataFrame):
     plt.pause(0.1)
 
 
-def visualize(function: Callable[[int], Any], name: str, series: l=Iterable[int]):
+def visualize(function: Callable[[int], Any], name: str, series: Iterable[int]):
     dataset = pd.DataFrame(columns=['N', 'Time'])
     plt.figure()
     plt.ion()
