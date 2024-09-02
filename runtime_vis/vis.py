@@ -69,7 +69,7 @@ class Vis:
             x_data = np.array(dataset['N'])
             y_data = np.array(dataset['Time'])
             for curve in self.curves:
-                popt, _ = opt.curve_fit(curve.callable, x_data, y_data, p0=initial_guess)
+                popt, _ = opt.curve_fit(curve.callable, x_data, y_data, p0=curve.initial_guess)
                 plt.plot(x_data, curve.callable(x_data, *popt_n), label=f'{popt[0]:.9f} * {curve.name}', color=curve.color)
             # print("Coefficients for n log n fit:", popt_nlogn)
             # print("Coefficients for n^2 fit:", popt_n2)
