@@ -1,1 +1,2 @@
-from .vis import visualize
+from .vis import Vis
+from .curves import Curve
