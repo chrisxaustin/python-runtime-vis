@@ -42,7 +42,7 @@ fit_nlogn = Curve('nlogn', _curve_nlogn, 'blue')
 fit_n2 = Curve('n2', _curve_n2, 'orange')
 fit_n3 = Curve('n3', _curve_n3, 'red')
 
-curves = {
+named_curves = {
     'n': fit_n,
     'logn': fit_logn,
     'nlogn': fit_nlogn,
