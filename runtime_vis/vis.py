@@ -29,7 +29,7 @@ class Vis:
             ]
 
 
-    def profile_batch(self, function: Callable[[int], Any], size: int, dataset: pd.DataFrame):
+    def profile_batch(self, function: Callable[[int], Any], size: int, dataset: pd.DataFrame) -> float:
         p = cProfile.Profile()
         p.enable()
         function(size)
@@ -39,13 +39,13 @@ class Vis:
         for stat in stats.stats.items():
             if stat[1][3] > time:
                 time = stat[1][3]
+        p.disable()
 
         dataset.loc[len(dataset)] = [size, time]
         self.render_plot(dataset)
         self.times.append((size,time))
 
-        p.disable()
-        print(f"{size}\t{time:4.2f}")
+        return time
 
     def render_plot(self, dataset: pd.DataFrame):
         plt.clf()
@@ -73,8 +73,15 @@ class Vis:
     def visualize(
         self,
         function: Callable[[int], Any],
-        series: Iterable[int]
+        series: Iterable[int],
+        performance_callback: Callable[[int,float], Any] = None
     ) -> List[tuple[int,int]]:
+        """
+        Visualizes the performance of the provided function.
+        :param function: a function that takes a N parameter
+        :param series: the values of N to pass to the function
+        :param performance_callback: a function that will accept an integer size and a float time
+        """
         dataset = pd.DataFrame(columns=['N', 'Time'])
         plt.figure()
         plt.ion()
@@ -82,7 +89,9 @@ class Vis:
         plt.xlabel('N')
         plt.ylabel('Time (ms)')
         for size in series:
-            self.profile_batch(function, size, dataset)
+            time = self.profile_batch(function, size, dataset)
+            if performance_callback:
+                performance_callback(size, time)
             self.fit_curve(dataset)
         plt.ioff()
         plt.show()
