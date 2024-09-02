@@ -43,7 +43,7 @@ class Vis:
         stats = pstats.Stats(p)
         time = 0
         for stat in stats.stats.items():
-            if stat[1][3] > max:
+            if stat[1][3] > time:
                 time = stat[1][3]
 
         row = {'N': size, 'Time': time}
