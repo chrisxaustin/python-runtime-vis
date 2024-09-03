@@ -79,7 +79,8 @@ class Vis:
         self,
         function: Callable[[int], Any],
         series: Iterable[int],
-        performance_callback: Callable[[int, float, str, float], Any] = None
+        performance_callback: Callable[[int, float, str, float], Any] = None,
+        keep_open: bool = True
     ) -> List[tuple[int, int]]:
         """
         Visualizes the performance of the provided function.
@@ -99,5 +100,6 @@ class Vis:
             if performance_callback:
                 performance_callback(size, time, complexity, accuracy)
 
-        plt.ioff()
-        plt.show()
+        if keep_open:
+            plt.ioff()
+            plt.show()
